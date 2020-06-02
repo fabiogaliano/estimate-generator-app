@@ -1,0 +1,66 @@
+{
+  "name": "estimate-generator-electron",
+  "version": "0.1.0",
+  "description": "estimate generator",
+  "author": "fbkz",
+  "build": {
+    "appId": "estimate.generator"
+  },
+  "private": true,
+  "homepage": "./",
+  "main": "public/electron.js",
+  "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.2.0",
+    "formik": "^2.1.4",
+    "pdfmake": "^0.1.65",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "styled-components": "^5.1.1",
+    "yup": "^0.29.1",
+    "zustand": "^2.2.3"
+  },
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "electron-build-windows": "electron-builder --win",
+    "electron-build-linux": "electron-builder --linux",
+    "electron-build-mac": "electron-builder --mac",
+    "build": "yarn react-build && yarn electron-build",
+    "build-windows": "yarn react-build && yarn electron-build-windows",
+    "build-linux": "yarn react-build && yarn electron-build-linux",
+    "build-mac": "yarn react-build && yarn electron-build-mac",
+    "start": "concurrently 'cross-env BROWSER=none yarn react-start' 'wait-on http://localhost:3000 && electron .'"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "electron": "^9.0.0",
+    "electron-builder": "^22.7.0",
+    "wait-on": "^5.0.0"
+  }
+}
