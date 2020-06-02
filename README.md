@@ -71,14 +71,16 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 
 ## Examples
 
-<a href="usage-examples/add-client.png"><img src="usage-examples/add-client.png" alt="Add client" width="600"/></a>
+<p align="center"><a href="usage-examples/add-client.png"><img src="usage-examples/add-client.png" alt="Add client" width="800"/></a></p>
+
 <br/><br/>
-<a href="usage-examples/add-estimate-item.png"> <img src="usage-examples/add-estimate-item.png" alt="Add estimate item" width="600" /></a>
+<p align="center"><a href="usage-examples/add-estimate-item.png"> <img src="usage-examples/add-estimate-item.png" alt="Add estimate item" width="800" /></a></p>
+
 <br/><br/>
 
 <p align="center">
 <a href="usage-examples/pdf-estimate-final-result.png">
-<img src="usage-examples/pdf-estimate-final-result.png" alt="Final PDF" height="400" /></a></p>
+<img src="usage-examples/pdf-estimate-final-result.png" alt="Final PDF" height="500" /></a></p>
 
 ## How to edit the PDF template
 
