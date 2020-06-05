@@ -15,12 +15,30 @@ import translations from "../helpers/translations";
 import languageStore from "../stores/languageStore";
 
 const EstimateListItemsDisplay = ({ description, qty, price, metric }) => {
-  let { estimateItems, removeEstimateItem } = estimateStore();
+  let {
+    estimateItems,
+    removeEstimateItem,
+    setCurrentInput,
+    setIndex,
+  } = estimateStore();
   let { language } = languageStore();
   let { estimateListDisplay } = translations;
 
   return (
-    <ListItem>
+    <ListItem
+      onDoubleClick={() => {
+        let returnedItem = estimateItems.find((item) => {
+          return item.workDescription.includes(description);
+        });
+        let returnedItemIndex = estimateItems.findIndex((item) => {
+          return item.workDescription.includes(description);
+        });
+
+        let { quantity, metric, metricPrice, workDescription } = returnedItem;
+        setCurrentInput(quantity, metric, metricPrice, workDescription);
+        setIndex(returnedItemIndex);
+      }}
+    >
       <ListItemText
         primary={description}
         secondary={

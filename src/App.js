@@ -48,7 +48,7 @@ const App = () => {
         <Button
           onClick={() => setLanguage("pt")}
           style={{
-            margin: "0px 10px",
+            margin: "5px 5px",
           }}
           variant="contained"
         >
@@ -57,7 +57,7 @@ const App = () => {
 
         <Button
           style={{
-            margin: "0px 5px",
+            margin: "5px 5px",
           }}
           variant="contained"
           onClick={() => setLanguage("en")}
