@@ -48,7 +48,14 @@ export const estimateItemValidationSchema = yup.object({
  * @param estimateItems array<estimateItem object>: `quantity:number`, `metric:string`, `metricPrice:string` & `workDescription:string`
  * @param tax number: ranging from 0 to 1 (eg: 23% tax is represented with 0.23)
  */
-export function generateEstimatePDF(worker, client, estimateItems, tax) {
+export function generateEstimatePDF(
+  worker,
+  client,
+  estimateItems,
+  tax,
+  lang,
+  translation
+) {
   let { subtotalCost, taxCost, totalCost } = calcEstimateCost();
   let todayDateFormatted = getTodayDate("/");
 
@@ -57,7 +64,12 @@ export function generateEstimatePDF(worker, client, estimateItems, tax) {
   // Total cost of the estimate - to be added in the end of the document
   let totalCostFormatted = [
     {
-      text: `Subtotal\nTAX (${String(tax * 100)}%)\nTotal`,
+      text: `${translateComponent(
+        translation.subtotal,
+        lang
+      )}\n${translateComponent(translation.tax, lang)} (${String(
+        tax * 100
+      )}%)\n${translateComponent(translation.total, lang)}`,
       colSpan: 2,
       rowSpan: 2,
       bold: true,
@@ -134,7 +146,7 @@ export function generateEstimatePDF(worker, client, estimateItems, tax) {
         ],
       },
       {
-        text: "\nESTIMATE",
+        text: `\n${translateComponent(translation.estimate, lang)}`,
         bold: true,
         alignment: "center",
         fontSize: 13,
@@ -145,7 +157,7 @@ export function generateEstimatePDF(worker, client, estimateItems, tax) {
         columns: [
           {
             width: "*",
-            text: "Client",
+            text: `${translateComponent(translation.client, lang)}`,
             bold: true,
           },
 
@@ -183,11 +195,26 @@ export function generateEstimatePDF(worker, client, estimateItems, tax) {
           // keepWithHeaderRows: 1,
           body: [
             [
-              { text: "Qty", style: "tableHeader" },
-              { text: "Metric", style: "tableHeader" },
-              { text: "Description", style: "tableHeader" },
-              { text: "Unit price", style: "tableHeader" },
-              { text: "Total price", style: "tableHeader" },
+              {
+                text: `${translateComponent(translation.quantity, lang)}`,
+                style: "tableHeader",
+              },
+              {
+                text: `${translateComponent(translation.metric, lang)}`,
+                style: "tableHeader",
+              },
+              {
+                text: `${translateComponent(translation.description, lang)}`,
+                style: "tableHeader",
+              },
+              {
+                text: `${translateComponent(translation.unitPrice, lang)}`,
+                style: "tableHeader",
+              },
+              {
+                text: `${translateComponent(translation.totalPrice, lang)}`,
+                style: "tableHeader",
+              },
             ],
           ],
         },

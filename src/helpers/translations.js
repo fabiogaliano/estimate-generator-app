@@ -93,6 +93,48 @@ let translations = {
       pt: "Preço p/ unid. métrica",
     },
   },
+  translationEstimatePDF: {
+    subtotal: {
+      en: "Subtotal",
+      pt: "Subtotal",
+    },
+    tax: {
+      en: "TAX",
+      pt: "IVA",
+    },
+    total: {
+      en: "Total",
+      pt: "Total",
+    },
+    estimate: {
+      en: "ESTIMATE",
+      pt: "ORÇAMENTO",
+    },
+    client: {
+      en: "Client",
+      pt: "Cliente",
+    },
+    quantity: {
+      en: "Qty",
+      pt: "Qtdd",
+    },
+    metric: {
+      en: "Metric",
+      pt: "Métrica",
+    },
+    description: {
+      en: "Description",
+      pt: "Descrição",
+    },
+    unitPrice: {
+      en: "Unit price",
+      pt: "Preço Unitário",
+    },
+    totalPrice: {
+      en: "Total Price",
+      pt: "Preço Total",
+    },
+  },
 };
 
 export default translations;

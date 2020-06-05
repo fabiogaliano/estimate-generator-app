@@ -34,7 +34,7 @@ const App = () => {
   let { client, removeClient } = clientStore();
   let { estimateItems, taxPercentage } = estimateStore();
   let { language, setLanguage } = languageStore();
-  let { app } = translations;
+  let { app, translationEstimatePDF } = translations;
 
   return (
     <div>
@@ -108,7 +108,9 @@ const App = () => {
                     mockWorker,
                     client,
                     estimateItems,
-                    taxPercentage
+                    taxPercentage,
+                    language,
+                    translationEstimatePDF
                   )
                 )
                 .download(
