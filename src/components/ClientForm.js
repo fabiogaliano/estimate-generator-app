@@ -4,6 +4,9 @@ import { TextField, Button, Grid } from "@material-ui/core";
 import clientStore from "../stores/clientStore";
 import styled from "styled-components";
 import { primaryColor } from "../helpers/colors";
+import { translateComponent } from "../helpers/helpers";
+import translations from "../helpers/translations";
+import languageStore from "../stores/languageStore";
 
 const TotalWrapper = styled.section`
   display: flex;
@@ -48,6 +51,9 @@ const ClientForm = ({ history }) => {
     locality: "",
     phone: "",
   };
+  let { language } = languageStore();
+  let { clientForm } = translations;
+
   return (
     <TotalWrapper>
       <Grid container>
@@ -63,7 +69,7 @@ const ClientForm = ({ history }) => {
               <CustomField
                 name="name"
                 type="input"
-                label="Client Name"
+                label={translateComponent(clientForm.name, language)}
                 variant="outlined"
                 style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               />
@@ -71,21 +77,21 @@ const ClientForm = ({ history }) => {
               <CustomField
                 name="street"
                 type="input"
-                label="Street Address"
+                label={translateComponent(clientForm.street, language)}
                 variant="outlined"
                 style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               />
               <CustomField
                 name="postalCode"
                 type="input"
-                label="Postal Code"
+                label={translateComponent(clientForm.postalCode, language)}
                 variant="outlined"
                 style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               />
               <CustomField
                 name="locality"
                 type="input"
-                label="Locality"
+                label={translateComponent(clientForm.locality, language)}
                 variant="outlined"
                 style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               />
@@ -93,7 +99,7 @@ const ClientForm = ({ history }) => {
               <CustomField
                 name="phone"
                 type="input"
-                label="Phone number"
+                label={translateComponent(clientForm.phone, language)}
                 variant="outlined"
                 style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               />
@@ -104,7 +110,7 @@ const ClientForm = ({ history }) => {
                   variant="contained"
                   style={{ margin: "0px 10px 10px 20px" }}
                 >
-                  Add
+                  {translateComponent(clientForm.addBtn, language)}
                 </Button>
               </div>
             </Form>

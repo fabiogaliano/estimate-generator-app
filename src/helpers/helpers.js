@@ -259,3 +259,7 @@ export function getTodayDate(separator) {
 
   return today;
 }
+
+export function translateComponent(component, lang = "pt") {
+  return component[lang];
+}

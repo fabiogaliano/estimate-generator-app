@@ -7,6 +7,7 @@ import ClientForm from "./components/ClientForm";
 import ClientDisplay from "./components/ClientDisplay";
 import clientStore from "./stores/clientStore";
 import estimateStore from "./stores/estimateStore";
+import languageStore from "./stores/languageStore";
 import {
   Delete as DeleteIcon,
   AddCircleOutlineTwoTone as AddCircleIcon,
@@ -16,7 +17,9 @@ import {
   generateEstimatePDF,
   getTodayDate,
   mockWorker,
+  translateComponent,
 } from "./helpers/helpers";
+import translations from "./helpers/translations";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { secondaryColor } from "./helpers/colors";
@@ -30,9 +33,38 @@ const Wrapper = styled.section`
 const App = () => {
   let { client, removeClient } = clientStore();
   let { estimateItems, taxPercentage } = estimateStore();
+  let { language, setLanguage } = languageStore();
+  let { app } = translations;
 
   return (
     <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          background: secondaryColor,
+        }}
+      >
+        <Button
+          onClick={() => setLanguage("pt")}
+          style={{
+            margin: "0px 10px",
+          }}
+          variant="contained"
+        >
+          PT
+        </Button>
+
+        <Button
+          style={{
+            margin: "0px 5px",
+          }}
+          variant="contained"
+          onClick={() => setLanguage("en")}
+        >
+          EN
+        </Button>
+      </div>
       <Wrapper>
         {client && <ClientDisplay client={client} />}
         <Link to="/client" style={{ textDecoration: "none" }}>
@@ -44,7 +76,7 @@ const App = () => {
               variant="contained"
               onClick={() => removeClient()}
             >
-              Remove Client
+              {translateComponent(app.removeClientBtn, language)}
             </Button>
           ) : (
             <Button
@@ -52,14 +84,17 @@ const App = () => {
               startIcon={<AddCircleIcon />}
               variant="contained"
             >
-              Add Client
+              {translateComponent(app.addClientBtn, language)}
             </Button>
           )}
         </Link>
         {"                "}
         <Link style={{ textDecoration: "none" }} to="/">
-          <Button variant="contained">Estimate</Button>
+          <Button variant="contained">
+            {translateComponent(app.estimateBtn, language)}
+          </Button>
         </Link>
+
         {client && estimateItems.length ? (
           <Button
             style={{ float: "right" }}
@@ -77,13 +112,16 @@ const App = () => {
                   )
                 )
                 .download(
-                  `ORÇAMENTO-${client.name.split(" ").join("")}_${getTodayDate(
-                    "-"
-                  )}.pdf`
+                  `${translateComponent(
+                    app.estimateBtn,
+                    language
+                  ).toUpperCase()}-${client.name
+                    .split(" ")
+                    .join("")}_${getTodayDate("-")}.pdf`
                 )
             }
           >
-            Generate Estimate
+            {translateComponent(app.generateEstimate, language)}
           </Button>
         ) : null}
       </Wrapper>
