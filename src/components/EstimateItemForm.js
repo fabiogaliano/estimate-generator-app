@@ -3,6 +3,9 @@ import { Formik, Form, useField } from "formik";
 import { TextField, Button, InputAdornment, Grid } from "@material-ui/core";
 import { estimateItemValidationSchema } from "../helpers/helpers";
 import estimateStore from "../stores/estimateStore";
+import { translateComponent } from "../helpers/helpers";
+import translations from "../helpers/translations";
+import languageStore from "../stores/languageStore";
 
 const CustomField = ({
   required,
@@ -34,6 +37,8 @@ const CustomField = ({
 
 const EstimateItemForm = () => {
   const { addEstimateItem } = estimateStore();
+  let { language } = languageStore();
+  let { estimateItemForm } = translations;
 
   return (
     <Grid container>
@@ -57,7 +62,7 @@ const EstimateItemForm = () => {
               required
               name="quantity"
               type="number"
-              label="Quantity"
+              label={translateComponent(estimateItemForm.quantity, language)}
               variant="outlined"
               style={{ margin: "20px 10px 10px 20px", width: "220px" }}
             />
@@ -65,7 +70,7 @@ const EstimateItemForm = () => {
             <CustomField
               name="metric"
               type="input"
-              label="Metric"
+              label={translateComponent(estimateItemForm.metric, language)}
               variant="outlined"
               style={{ margin: "20px 10px 10px 0px", width: "220px" }}
             />
@@ -73,7 +78,7 @@ const EstimateItemForm = () => {
               required
               name="metricPrice"
               type="input"
-              label="Price per unit metrics"
+              label={translateComponent(estimateItemForm.metricPrice, language)}
               variant="outlined"
               style={{ margin: "20px 10px 10px 0px", width: "220px" }}
               inputProps={{
@@ -85,7 +90,10 @@ const EstimateItemForm = () => {
                 required
                 name="workDescription"
                 type="input"
-                label="Description of the work"
+                label={translateComponent(
+                  estimateItemForm.workDescription,
+                  language
+                )}
                 variant="outlined"
                 style={{ margin: "20px 20px", width: "680px" }}
               />
@@ -95,7 +103,7 @@ const EstimateItemForm = () => {
               variant="contained"
               style={{ margin: "0px 10px 10px 20px" }}
             >
-              Add
+              {translateComponent(estimateItemForm.addBtn, language)}
             </Button>
           </Form>
         )}

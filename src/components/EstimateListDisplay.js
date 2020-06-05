@@ -10,17 +10,33 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { formatMoney } from "../helpers/helpers";
 import estimateStore from "../stores/estimateStore";
+import { translateComponent } from "../helpers/helpers";
+import translations from "../helpers/translations";
+import languageStore from "../stores/languageStore";
 
 const EstimateListItemsDisplay = ({ description, qty, price, metric }) => {
   let { estimateItems, removeEstimateItem } = estimateStore();
+  let { language } = languageStore();
+  let { estimateListDisplay } = translations;
 
   return (
     <ListItem>
       <ListItemText
         primary={description}
         secondary={
-          `Quantity: ${qty} | Price per unit metrics: ${formatMoney(price)}` +
-          (metric ? ` | Metric: ${metric}` : "")
+          `${translateComponent(
+            estimateListDisplay.quantity,
+            language
+          )}: ${qty} | ${translateComponent(
+            estimateListDisplay.metricPrice,
+            language
+          )}: ${formatMoney(price)}` +
+          (metric
+            ? ` | ${translateComponent(
+                estimateListDisplay.metric,
+                language
+              )}: ${metric}`
+            : "")
         }
       />
 

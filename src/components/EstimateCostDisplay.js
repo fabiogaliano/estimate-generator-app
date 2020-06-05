@@ -3,6 +3,9 @@ import { Radio, RadioGroup, FormControlLabel } from "@material-ui/core";
 import { formatMoney } from "../helpers/helpers";
 import { secondaryColor } from "../helpers/colors";
 import estimateStore from "../stores/estimateStore";
+import { translateComponent } from "../helpers/helpers";
+import translations from "../helpers/translations";
+import languageStore from "../stores/languageStore";
 
 const EstimateCostDisplay = () => {
   let styling = {
@@ -21,6 +24,8 @@ const EstimateCostDisplay = () => {
   }, 0);
   let taxCost = subtotalCost * taxPercentage;
   let totalCost = subtotalCost + subtotalCost * taxPercentage;
+  let { language } = languageStore();
+  let { estimateCostDisplay } = translations;
 
   return (
     <div
@@ -59,13 +64,16 @@ const EstimateCostDisplay = () => {
 
       <div style={styling}>
         <p>
-          Subtotal: <strong>{formatMoney(subtotalCost)}</strong>
+          {translateComponent(estimateCostDisplay.subtotal, language)}:{" "}
+          <strong>{formatMoney(subtotalCost)}</strong>
         </p>
         <p>
-          Tax:<strong> {formatMoney(taxCost)}</strong>
+          {translateComponent(estimateCostDisplay.tax, language)}:{" "}
+          <strong> {formatMoney(taxCost)}</strong>
         </p>
         <p>
-          Total: <strong>{formatMoney(totalCost)}</strong>
+          {translateComponent(estimateCostDisplay.total, language)}:{" "}
+          <strong>{formatMoney(totalCost)}</strong>
         </p>
       </div>
     </div>
