@@ -8,6 +8,8 @@ import translations from "../helpers/translations";
 import languageStore from "../stores/languageStore";
 
 const CustomField = ({
+  value,
+  onChange,
   required,
   style,
   type,
@@ -18,6 +20,7 @@ const CustomField = ({
 }) => {
   let [field, meta] = useField(props);
   let errorText = meta.error && meta.touched ? meta.error : "";
+
   return (
     <TextField
       {...field}
@@ -36,7 +39,14 @@ const CustomField = ({
 };
 
 const EstimateItemForm = () => {
-  const { addEstimateItem } = estimateStore();
+  const {
+    addEstimateItem,
+    currentInput,
+    index,
+    setIndex,
+    changeEstimateItem,
+    resetCurrentInput,
+  } = estimateStore();
   let { language } = languageStore();
   let { estimateItemForm } = translations;
 
@@ -44,69 +54,80 @@ const EstimateItemForm = () => {
     <Grid container>
       <Formik
         validateOnChange={true}
+        enableReinitialize
         validationSchema={estimateItemValidationSchema}
-        initialValues={{
-          quantity: "",
-          metric: "",
-          metricPrice: "",
-          workDescription: "",
-        }}
+        initialValues={{ ...currentInput }}
         onSubmit={(data, { resetForm }) => {
-          addEstimateItem(data);
-          resetForm();
+          if (index != null) {
+            changeEstimateItem(index, data);
+            setIndex(null);
+            resetCurrentInput();
+            resetForm();
+          } else {
+            addEstimateItem(data);
+            resetCurrentInput();
+            resetForm();
+          }
         }}
       >
-        {({ values, errors }) => (
-          <Form>
-            <CustomField
-              required
-              name="quantity"
-              type="number"
-              label={translateComponent(estimateItemForm.quantity, language)}
-              variant="outlined"
-              style={{ margin: "20px 10px 10px 20px", width: "220px" }}
-            />
-
-            <CustomField
-              name="metric"
-              type="input"
-              label={translateComponent(estimateItemForm.metric, language)}
-              variant="outlined"
-              style={{ margin: "20px 10px 10px 0px", width: "220px" }}
-            />
-            <CustomField
-              required
-              name="metricPrice"
-              type="input"
-              label={translateComponent(estimateItemForm.metricPrice, language)}
-              variant="outlined"
-              style={{ margin: "20px 10px 10px 0px", width: "220px" }}
-              inputProps={{
-                endAdornment: <InputAdornment position="end">€</InputAdornment>,
-              }}
-            />
-            <div>
+        {({ values, errors }) => {
+          return (
+            <Form>
               <CustomField
                 required
-                name="workDescription"
+                name="quantity"
+                type="number"
+                label={translateComponent(estimateItemForm.quantity, language)}
+                variant="outlined"
+                style={{ margin: "20px 10px 10px 20px", width: "220px" }}
+              />
+
+              <CustomField
+                name="metric"
+                type="input"
+                label={translateComponent(estimateItemForm.metric, language)}
+                variant="outlined"
+                style={{ margin: "20px 10px 10px 0px", width: "220px" }}
+              />
+              <CustomField
+                required
+                name="metricPrice"
                 type="input"
                 label={translateComponent(
-                  estimateItemForm.workDescription,
+                  estimateItemForm.metricPrice,
                   language
                 )}
                 variant="outlined"
-                style={{ margin: "20px 20px", width: "680px" }}
+                style={{ margin: "20px 10px 10px 0px", width: "220px" }}
+                inputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">€</InputAdornment>
+                  ),
+                }}
               />
-            </div>
-            <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "0px 10px 10px 20px" }}
-            >
-              {translateComponent(estimateItemForm.addBtn, language)}
-            </Button>
-          </Form>
-        )}
+              <div>
+                <CustomField
+                  required
+                  name="workDescription"
+                  type="input"
+                  label={translateComponent(
+                    estimateItemForm.workDescription,
+                    language
+                  )}
+                  variant="outlined"
+                  style={{ margin: "20px 20px", width: "680px" }}
+                />
+              </div>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ margin: "0px 10px 10px 20px" }}
+              >
+                {translateComponent(estimateItemForm.addBtn, language)}
+              </Button>
+            </Form>
+          );
+        }}
       </Formik>
     </Grid>
   );
